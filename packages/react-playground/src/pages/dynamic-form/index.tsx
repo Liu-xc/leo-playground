@@ -1,36 +1,27 @@
-import React from 'react';
-import { createForm } from '@formily/core';
-import { FormProvider, Field, FormConsumer } from '@formily/react';
-import {
-  FormButtonGroup,
-  FormItem,
-  FormLayout,
-  Input,
-  Submit,
-} from '@formily/antd';
+import React, { useMemo } from 'react';
+import FieldForm from './FieldForm';
 import SchemaForm from './SchemaForm';
+import DemoTabs, { DemoTabsProps } from '../../components/DemoTabs';
 
 const DynamicFormPlayground = () => {
-  const form = createForm();
+  const items: DemoTabsProps['items'] = useMemo(() => {
+    return [
+      {
+        label: 'Field写法',
+        key: 'Field写法',
+        children: <FieldForm />,
+      },
+      {
+        label: 'Schema写法',
+        key: 'Schema写法',
+        children: <SchemaForm />,
+      },
+    ];
+  }, []);
+
   return (
     <div>
-      <FormProvider form={form}>
-        <FormLayout layout={'vertical'}>
-          <Field
-            name="input"
-            title="input box"
-            required
-            initialValue="hello"
-            decorator={[FormItem]}
-            component={[Input, { value: 'world' }]}
-          />
-        </FormLayout>
-        <FormConsumer>{() => <div>{form.values.input}</div>}</FormConsumer>
-        <FormButtonGroup>
-          <Submit onSubmit={() => console.log(form.values)}>submit</Submit>
-        </FormButtonGroup>
-      </FormProvider>
-      <SchemaForm />
+      <DemoTabs items={items} />
     </div>
   );
 };
