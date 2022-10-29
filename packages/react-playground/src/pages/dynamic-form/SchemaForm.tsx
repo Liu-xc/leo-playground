@@ -1,7 +1,7 @@
 import React from 'react';
-import { createForm } from '@formily/core';
+import { createForm, onFieldValueChange } from '@formily/core';
 import { createSchemaField } from '@formily/react';
-import { Form, FormItem, Input, Password, Submit } from '@formily/antd';
+import { Form, FormItem, Input, Password } from '@formily/antd';
 
 const MyValidation: React.FC<any> = (props) => {
   const { username } = props;
@@ -10,6 +10,15 @@ const MyValidation: React.FC<any> = (props) => {
 
 const normalForm = createForm({
   validateFirst: true,
+  effects() {
+    onFieldValueChange('username', (field) => {
+      normalForm.setFieldState('age', (state) => {
+        if (!field.value) {
+          state.value = undefined;
+        }
+      });
+    });
+  },
 });
 
 const SchemaField = createSchemaField({
@@ -43,6 +52,20 @@ const SchemaForm = () => (
         required
         x-decorator="FormItem"
         x-component="Input"
+        x-reactions={{
+          dependencies: ['age'],
+          target: 'doubleAge',
+          effects: [
+            'onFieldInit',
+            'onFieldValueChange',
+            'onFieldInputValueChange',
+          ],
+          fulfill: {
+            state: {
+              value: '{{$deps[0] ? $deps[0] * 2 : undefined}}',
+            },
+          },
+        }}
       />
       <SchemaField.Void
         name="verify"
@@ -59,6 +82,30 @@ const SchemaForm = () => (
             },
           },
         ]}
+      />
+      <SchemaField.Number
+        name="age"
+        title="User Age"
+        required
+        x-decorator="FormItem"
+        x-component="Input"
+        // x-reactions={[
+        //   {
+        //     dependencies: ['.username#value'],
+        //     target: '.double-age',
+        //     fulfill: {
+        //       state: {
+        //         'component[1].value': '{{$deps[0]}}',
+        //       },
+        //     },
+        //   },
+        // ]}
+      />
+      <SchemaField.Number
+        name="doubleAge"
+        title="Double Age"
+        x-decorator="FormItem"
+        x-component="Input"
       />
     </SchemaField>
     <SchemaField schema={pureSchema} />
