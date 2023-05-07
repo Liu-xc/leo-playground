@@ -1,0 +1,17 @@
+.btn {
+  background-color: antiquewhite;
+  width: 100px;
+  height: 100px;
+}
+
+:global(.global-btn) {
+  font-size: 20px;
+  font-weight: bolder;
+}
+
+.global-btn {
+  &:extend(.btn);
+  background-color: gray;
+  font-size: 10px;
+  font-weight: 100;
+}
