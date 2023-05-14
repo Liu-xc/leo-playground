@@ -6,6 +6,8 @@ module.exports = {
   output: {
     clean: true,
     module: true,
+    filename: '[name].[contenthash].js',
+    chunkFilename: '[name].[contenthash].js',
   },
   experiments: {
     outputModule: true,
@@ -64,5 +66,21 @@ module.exports = {
         exclude: /node_modules/,
       },
     ],
+  },
+  optimization: {
+    minimize: true,
+    splitChunks: {
+      chunks: 'all',
+      minSize: 0,
+      cacheGroups: {
+        dynamicImports: {
+          test(module) {
+            return /(asyncChunk|dynamicChunk)/.test(module.resource || '');
+          },
+          chunks: 'all',
+          name: 'dynamicImports',
+        },
+      },
+    },
   },
 };

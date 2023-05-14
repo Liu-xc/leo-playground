@@ -3,13 +3,16 @@ import { useCallback, useEffect, useState } from 'react';
 import styles from './gallery.less';
 
 export const Gallery = () => {
-  const [img, setImg] = useState('');
+  const [img, setImg] = useState<string>();
   const [imgSrc, setImgSrc] = useState();
 
   useEffect(() => {
-    import(`../assets/${img}.jpg`).then((res) => {
-      setImgSrc(res.default);
-    });
+    img &&
+      import(/* webpackPrefetch: true */ `../assets/${img}.jpg`)
+        .then((res) => {
+          setImgSrc(res.default);
+        })
+        .catch((e) => console.error(e));
   }, [img]);
 
   const getImage = useCallback(() => {
