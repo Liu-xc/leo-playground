@@ -26,7 +26,7 @@ export const getObjectStore = (db: IDBDatabase, name: string, mode: IDBTransacti
 }
 
 export const addValueToStore = async (objectStore: IDBObjectStore, item: { key: string, value: unknown }) => {
-  const request = objectStore.put(item.value);
+  const request = objectStore.put(item.value, item.key);
   return promisify(request);
 }
 

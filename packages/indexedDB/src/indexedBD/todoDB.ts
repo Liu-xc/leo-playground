@@ -1,4 +1,4 @@
-import { openDB, getObjectStore, getValueFromStore, addValueToStore } from './utils';
+import { openDB, getObjectStore, getValueFromStore, addValueToStore, promisify } from './utils';
 
 const openTodoDB = async () => {
   return openDB('todo', {
@@ -32,9 +32,8 @@ const addTodoItem = async (value: {
   title: string;
   ddl: number;
 }) => {
-  const { title } = value;
   const objectStore = await getTodoStore('readwrite');
-  return addValueToStore(objectStore, { key: title, value });
+  return promisify(objectStore.put(value))
 }
 
 export const entry = async () => {
