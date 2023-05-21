@@ -15,12 +15,24 @@ export default {
     }),
   ],
   build: {
-    outDir: path.resolve(__dirname, './dist'),
     rollupOptions: {
-      input: path.resolve(__dirname, './src/contentjs/content.js'),
+      preserveEntrySignatures: true,
+      input: {
+        content: path.resolve(__dirname, './src/contentjs/content.ts'),
+        service: path.resolve(__dirname, './src/servicejs/service.ts'),
+      },
       output: {
         entryFileNames: '[name].js',
+        dir: path.resolve(__dirname, './dist'),
+        preserveModules: true,
       },
     },
+    // {
+    //   input: path.resolve(__dirname, './src/servicejs/service.ts'),
+    //   output: {
+    //     entryFileNames: '[name].js',
+    //     dir: path.resolve(__dirname, './dist/service_scripts'),
+    //   },
+    // },
   },
 };

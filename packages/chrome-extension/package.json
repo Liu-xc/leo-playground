@@ -5,12 +5,19 @@
   "main": "index.js",
   "scripts": {
     "build": "vite build --mode production --config ./vite.config.js",
-    "build:watch": "vite build --mode production  --config ./vite.config.js --watch"
+    "build:watch": "vite build --mode production  --config ./vite.config.js --watch",
+    "compile": "babel --config-file ./babel.config.json --extensions '.ts' --out-dir dist ./src && pnpm copy",
+    "copy": "babel ./manifest.json --out-dir ./dist --copy-files"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.21.5",
+    "@babel/core": "^7.21.8",
+    "@babel/plugin-transform-typescript": "^7.21.3",
+    "@babel/preset-env": "^7.21.5",
+    "@types/chrome": "^0.0.236",
     "vite": "^4.3.8",
     "vite-plugin-static-copy": "^0.15.0"
   }
