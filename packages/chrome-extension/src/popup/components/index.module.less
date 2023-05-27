@@ -1,0 +1,52 @@
+.tabList {
+  & :global(.ant-list-items) {
+    padding-left: 0px;
+  }
+
+  .listItem {
+    display: flex;
+    align-items: center;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    &:hover {
+      cursor: pointer;
+      background-color: floralwhite;
+    }
+
+    .avatar {
+      flex: 0;
+      padding: 8px;
+      text-align: center;
+    }
+
+    .content {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      min-width: 0;
+
+      .title {
+        font-size: 14px;
+        font-weight: 600;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+
+      .desc {
+        font-size: 12px;
+        color: gray;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+    }
+
+    .checkBox {
+      justify-self: flex-start;
+      flex: 0;
+      padding: 8px;
+      align-self: center;
+    }
+  }
+}
