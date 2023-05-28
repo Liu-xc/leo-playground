@@ -1,3 +1,4 @@
+import { useCallback, useEffect, useState } from 'react';
 import { IndexedDBKit } from './indexedDB';
 import { MD5 } from 'crypto-js';
 
@@ -16,14 +17,9 @@ export class TabManager {
 
   private tabDB: IndexedDBKit<chrome.tabs.Tab> | null = null;
   private groupDB: IndexedDBKit<chrome.tabGroups.TabGroup> | null = null;
+  private readonly cbs = Array<() => void>();
 
   constructor() {
-    if (TabManager.instance) {
-      return TabManager.instance;
-    }
-
-    TabManager.instance = this;
-
     this.init();
   }
 
@@ -52,6 +48,56 @@ export class TabManager {
   saveTabs = async (tabs: chrome.tabs.Tab[]) => {
     return await Promise.all(tabs.map(async t => await this.tabDB?.update(t)));
   }
+
+  closeTabs = chrome.tabs.remove;
+
+  group = chrome.tabs.group;
+
+  updateGroup = chrome.tabGroups.update;
+
+  highlight = chrome.tabs.highlight;
+
+  getWindow = chrome.windows.get;
+
+  updateWindow = chrome.windows.update;
+
+  listenChange = (cb: () => void) => {
+    this.cbs.push(cb);
+  }
+
+  onChange = () => {
+    this.cbs.forEach(cb => { cb(); });
+  }
 }
 
-export const tabManager = new TabManager();
+export const useTabManager = () => {
+  const [tabManager, setTabManager] = useState(new TabManager());
+
+  const listener = useCallback(() => {
+    setTabManager(new TabManager());
+  }, []);
+
+  useEffect(() => {
+    chrome.tabs.onCreated.addListener(listener);
+    chrome.tabs.onUpdated.addListener(listener);
+    chrome.tabs.onMoved.addListener(listener);
+    chrome.tabs.onRemoved.addListener(listener);
+    chrome.tabGroups.onCreated.addListener(listener);
+    chrome.tabGroups.onUpdated.addListener(listener);
+    chrome.tabGroups.onMoved.addListener(listener);
+    chrome.tabGroups.onRemoved.addListener(listener);
+
+    return () => {
+      chrome.tabs.onCreated.removeListener(listener);
+      chrome.tabs.onUpdated.removeListener(listener);
+      chrome.tabs.onMoved.removeListener(listener);
+      chrome.tabs.onRemoved.removeListener(listener);
+      chrome.tabGroups.onCreated.removeListener(listener);
+      chrome.tabGroups.onUpdated.removeListener(listener);
+      chrome.tabGroups.onMoved.removeListener(listener);
+      chrome.tabGroups.onRemoved.removeListener(listener);
+    }
+  }, [listener]);
+
+  return tabManager;
+}
