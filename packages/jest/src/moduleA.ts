@@ -20,4 +20,3 @@ export class CalcModule {
     return res;
   }
 }
-

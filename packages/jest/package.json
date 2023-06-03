@@ -2,9 +2,8 @@
   "name": "jest",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "NODE_OPTIONS=--experimental-vm-modules  pnpm jest"
   },
   "type": "module",
   "keywords": [],
@@ -13,11 +12,14 @@
   "devDependencies": {
     "@babel/core": "^7.21.8",
     "@babel/plugin-transform-modules-commonjs": "^7.21.5",
+    "@babel/plugin-transform-typescript": "^7.21.3",
     "@babel/preset-env": "^7.21.5",
     "@babel/preset-typescript": "^7.21.5",
+    "@jest/globals": "^29.5.0",
     "@types/lodash-es": "^4.17.7",
     "babel-cli": "^6.26.0",
     "babel-jest": "28.1.1",
+    "cross-env": "^7.0.3",
     "jest": "28.1.1",
     "lodash": "^4.17.21",
     "ts-jest": "28.0.5"

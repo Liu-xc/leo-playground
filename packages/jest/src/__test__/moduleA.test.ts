@@ -1,3 +1,4 @@
+import { describe, test } from '@jest/globals'
 import { CalcModule } from '../moduleA';
 
 describe('test moduleA', () => {
