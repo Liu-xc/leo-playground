@@ -3,6 +3,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Button } from './components/button';
 import axios from 'axios';
+import { print } from '@utils/print';
 
 setTimeout(() => {
   const p = document.createElement('p');
@@ -12,6 +13,7 @@ setTimeout(() => {
 
 import('./utils/index').then(({ towSum }) => {
   console.log(towSum(1, 3));
+  print('here')
 });
 
 forOwn(
@@ -23,7 +25,7 @@ forOwn(
   }
 );
 
-axios.get('https://sponsors.vuejs.org/vite.json').then((res) => {
+axios.get('https://sponsors.vuejs.org/vite.json').then((res: any) => {
   console.log('request res: ', res);
 });
 const root = createRoot(document.body);

@@ -1,5 +1,5 @@
 {
-  "name": "vite_app",
+  "name": "leo_vite_app",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -26,6 +26,7 @@
     "axios": "^1.4.0",
     "classnames": "^2.3.2",
     "lodash-es": "^4.17.21",
-    "react": "18.2.0"
+    "react": "18.2.0",
+    "leo_vite-project": "*"
   }
 }

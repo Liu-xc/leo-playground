@@ -1,0 +1,1 @@
+export const sumTwo = (a: number, b: number) => a + b + 1;
