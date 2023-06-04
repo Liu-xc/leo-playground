@@ -1,8 +1,9 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const LeoPlugin = require('./webpack/plugins');
 
 module.exports = {
-  entry: path.resolve(__dirname, './src/index'),
+  entry: path.resolve(__dirname, './src/index2'),
   output: {
     clean: true,
     module: true,
@@ -16,6 +17,7 @@ module.exports = {
     new HTMLWebpackPlugin({
       scriptLoading: 'module',
     }),
+    new LeoPlugin()
   ],
   target: ['web'],
   resolve: {
@@ -33,6 +35,10 @@ module.exports = {
               '@babel/preset-env',
               {
                 modules: false,
+                targets: {
+                  chrome: "58",
+                  ie: "10"
+                }
               },
             ],
             '@babel/preset-react',
@@ -65,16 +71,20 @@ module.exports = {
         loader: 'url-loader',
         exclude: /node_modules/,
       },
+      {
+        test: /\.ts(x)?$/,
+        loader: './webpack/loaders.js'
+      }
     ],
   },
   optimization: {
-    minimize: true,
+    // minimize: true,
     splitChunks: {
       chunks: 'all',
       minSize: 0,
       cacheGroups: {
         dynamicImports: {
-          test(module) {
+          test (module) {
             return /(asyncChunk|dynamicChunk)/.test(module.resource || '');
           },
           chunks: 'all',
