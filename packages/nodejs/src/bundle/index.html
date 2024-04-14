@@ -3,9 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document���1哈哈</title>
+  <title>hello</title>
 </head>
 <body>
-  
+  hello template
+  <div id="data"></div>
 </body>
+<script>
+// import('http://localhost:8080/dist/index.js')
+
+  // Create WebSocket connection.
+const socket = new WebSocket("ws://localhost:3001");
+
+// Connection opened
+socket.addEventListener("open", (event) => {
+  socket.send("Hello Server!");
+});
+
+// Listen for messages
+socket.addEventListener("message", (event) => {
+  console.log("Message from server ", event.data);
+  try {
+    const jsonData = JSON.parse(event.data);
+    const { changeFile } = jsonData;
+    import(`http://localhost:8080/dist/${changeFile}?${Date.now()}`).then(module => {
+      console.log(module.default);
+      const data = eval(module.default);
+      document.querySelector('#data').innerHTML = JSON.stringify(data());
+    }).catch(e => {
+      console.error(e)
+    })
+  } catch (error) {
+    
+  }
+});
+
+</script>
 </html>
