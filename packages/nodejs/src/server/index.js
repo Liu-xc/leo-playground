@@ -4,7 +4,8 @@ var http = require("http");
 var server = http.createServer(function (req, res) {
     var urlItem = req.url;
     console.log(req.url, req.headers.host);
-    res.end('hello world!');
+    res.setHeader('Content-Type', 'application/xhtml+xml; charset=utf-8')
+    res.end('<h1>杨璐铭是猪！</h1>');
 });
 server.listen(8080, function () {
     console.log('listening 8080');

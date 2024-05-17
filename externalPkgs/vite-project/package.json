@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "comlink": "^4.4.1",
-    "leo-web-workers": "1.0.0",
+    "leo-web-workers": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
