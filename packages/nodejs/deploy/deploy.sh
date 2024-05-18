@@ -1,1 +1,4 @@
-cd /root/leo-playground/packages/nodejs && git pull && npm i -g pnpm ts-node tmux && pnpm i && node src/server/index
+#!/bin/bash
+npm i -g pnpm ts-node
+pnpm i 
+node src/server/index

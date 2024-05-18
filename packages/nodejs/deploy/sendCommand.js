@@ -34,7 +34,7 @@ class Client {
     let runCommandRequest = new Ecs20140526.RunCommandRequest({
       regionId: 'cn-beijing',
       type: 'RunShellScript',
-      commandContent: 'cd /root/leo-playground/packages/nodejs && git pull && npm i -g pnpm ts-node tmux && pnpm i && node src/server/index',
+      commandContent: 'cd /root/leo-playground/packages/nodejs && git pull && bash ./deploy/deploy.sh',
       instanceId: [
         'i-2ze8tk997dfynbrx9smz'
       ],
