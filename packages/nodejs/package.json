@@ -9,6 +9,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@alicloud/ecs20140526": "^4.1.6",
+    "@alicloud/openapi-client": "^0.4.9",
+    "@alicloud/tea-util": "^1.4.8",
     "@types/node": "18.7.18"
   },
   "dependencies": {
