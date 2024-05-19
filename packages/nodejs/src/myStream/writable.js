@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,10 +8,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import EventEmitter from "events";
-import fs from 'fs';
-import path from "path";
-export class MyWritable extends EventEmitter {
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.MyWritable = void 0;
+const events_1 = __importDefault(require("events"));
+const fs_1 = __importDefault(require("fs"));
+const path_1 = __importDefault(require("path"));
+class MyWritable extends events_1.default {
     constructor(p, highWaterMark = 10) {
         super();
         this.p = p;
@@ -25,14 +31,14 @@ export class MyWritable extends EventEmitter {
             }
             this.initing = new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
                 yield this.makeAccessibility();
-                const fileHandler = yield fs.promises.open(this.p, 'w');
+                const fileHandler = yield fs_1.default.promises.open(this.p, 'w');
                 this.fileHandler = fileHandler;
                 this.drain();
                 resolve();
             }));
             return this, this.initing;
         });
-        this.p = path.resolve(__dirname, this.p);
+        this.p = path_1.default.resolve(__dirname, this.p);
     }
     makeAccessibility() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -40,8 +46,8 @@ export class MyWritable extends EventEmitter {
         });
     }
     close() {
-        var _a;
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             yield ((_a = this.fileHandler) === null || _a === void 0 ? void 0 : _a.close());
             this.emit('close');
         });
@@ -94,3 +100,4 @@ export class MyWritable extends EventEmitter {
         }
     }
 }
+exports.MyWritable = MyWritable;

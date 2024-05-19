@@ -1,7 +1,9 @@
-import { MyReadable } from "./readable";
-import { MyWritable } from "./writable";
-const myReadable = new MyReadable('../template/index.html', 3);
-const myWritable = new MyWritable('../bundle/index.html', 3);
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const readable_1 = require("./readable");
+const writable_1 = require("./writable");
+const myReadable = new readable_1.MyReadable('../template/index.html', 3);
+const myWritable = new writable_1.MyWritable('../bundle/index.html', 3);
 myWritable.on('needDrain', () => {
     console.log('need drain');
     myReadable.pause();
