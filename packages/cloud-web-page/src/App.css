@@ -50,4 +50,10 @@
   height: 100px !important;
   border-radius: 50% !important;
   overflow: hidden;
+  background-image: url(./assets/uehara.jpg);
+  background-size: contain;
+
+  img {
+    visibility: hidden;
+  }
 }
