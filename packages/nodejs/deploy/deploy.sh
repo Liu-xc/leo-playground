@@ -1,5 +1,10 @@
 #!/bin/bash
-npm i -g pnpm pm2
-pnpm i 
-npx kill-port 8080
-pm2 start src/server/index.js -i 4
+npm i -g pnpm pm2 vite typescript
+cd ../../
+pnpm i
+cd ./cloud-web-page
+pnpm build
+cd ../nodejs
+tsc --outDir ./dist
+pm2 kill
+pm2 start dist/koa-server/index.js -i 4
