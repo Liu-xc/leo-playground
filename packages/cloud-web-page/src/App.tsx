@@ -4,7 +4,7 @@ import Uehara from './assets/uehara.jpg';
 
 function App() {
   useEffect(() => {
-    new (CozeWebSDK as any).WebChatClient({
+    new CozeWebSDK.WebChatClient({
         config: {
         bot_id: '7370367569473077249',
         },

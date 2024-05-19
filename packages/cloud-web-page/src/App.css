@@ -46,8 +46,8 @@
   left: 50vw;
   bottom: none !important;
   transform: translateX(-50%);
-  width: 100px;
-  height: 100px;
+  width: 100px !important;
+  height: 100px !important;
   border-radius: 50% !important;
   overflow: hidden;
 }
