@@ -4,8 +4,6 @@
 const Ecs20140526 = require('@alicloud/ecs20140526');
 const OpenApi = require('@alicloud/openapi-client');
 const Util = require('@alicloud/tea-util');
-const path = require('path');
-const fs = require('fs');
 
 class Client {
 
@@ -30,10 +28,10 @@ class Client {
 
   static async main (args) {
     let client = Client.createClient();
-    const command = fs.readFileSync(path.resolve(__dirname, './deploy.sh'), 'utf-8');
     let runCommandRequest = new Ecs20140526.RunCommandRequest({
       regionId: 'cn-beijing',
       type: 'RunShellScript',
+      timeout: 600,
       commandContent: 'cd /root/leo-playground/packages/nodejs/deploy && git fetch && git reset --hard origin/main && bash ./deploy.sh',
       instanceId: [
         'i-2ze8tk997dfynbrx9smz'
